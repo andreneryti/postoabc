@@ -1,0 +1,19 @@
+program ProjPosto;
+
+uses
+  Vcl.Forms,
+  UPrincipal in 'UPrincipal.pas' {frmPrincipal},
+  UDados in 'UDados.pas' {DmDados: TDataModule},
+  UCadastroOpcoes in 'UCadastroOpcoes.pas' {frmCadastroOpcoes},
+  UCadastro in 'UCadastro.pas' {frmCadastro};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TDmDados, DmDados);
+  Application.CreateForm(TfrmCadastro, frmCadastro);
+  Application.Run;
+end.

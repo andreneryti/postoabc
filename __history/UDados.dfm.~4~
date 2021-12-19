@@ -1,0 +1,15 @@
+object DmDados: TDmDados
+  OldCreateOrder = False
+  Height = 435
+  Width = 844
+  object FDConexao: TFDConnection
+    Params.Strings = (
+      'Database=C:\PostoABC\fontes\Win32\Debug\banco\POSTO.FDB'
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 624
+    Top = 112
+  end
+end

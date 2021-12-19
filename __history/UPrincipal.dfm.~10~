@@ -1,0 +1,123 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = '::: Posto ABC'
+  ClientHeight = 662
+  ClientWidth = 933
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object imgLogo: TImage
+    Left = 0
+    Top = 147
+    Width = 933
+    Height = 469
+    Align = alClient
+    ExplicitLeft = 424
+    ExplicitTop = 296
+    ExplicitWidth = 105
+    ExplicitHeight = 105
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 933
+    Height = 147
+    Align = alTop
+    TabOrder = 0
+    object Image1: TImage
+      Left = 24
+      Top = 8
+      Width = 121
+      Height = 125
+      Cursor = crHandPoint
+      Hint = 'Cadastro ...'
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = Image1Click
+    end
+    object Image2: TImage
+      Left = 168
+      Top = 8
+      Width = 121
+      Height = 125
+      Cursor = crHandPoint
+      Hint = 'Abastecimento'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Image3: TImage
+      Left = 312
+      Top = 8
+      Width = 121
+      Height = 125
+      Cursor = crHandPoint
+      Hint = 'Relat'#243'rios'
+      ParentShowHint = False
+      ShowHint = True
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 616
+    Width = 933
+    Height = 46
+    Align = alBottom
+    TabOrder = 1
+    DesignSize = (
+      933
+      46)
+    object Label1: TLabel
+      Left = 8
+      Top = 6
+      Width = 173
+      Height = 19
+      Anchors = [akLeft, akBottom]
+      Caption = 'Andr'#233' Lu'#237's Nery Silva'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 8
+      Top = 26
+      Width = 142
+      Height = 14
+      Anchors = [akLeft, akBottom]
+      Caption = 'andreneryti@gmail.com'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object BitBtn2: TBitBtn
+      Left = 852
+      Top = 3
+      Width = 75
+      Height = 39
+      Cursor = crHandPoint
+      Anchors = [akRight, akBottom]
+      Caption = 'Sai&r'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = BitBtn2Click
+    end
+  end
+end

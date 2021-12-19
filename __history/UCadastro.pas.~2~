@@ -1,0 +1,42 @@
+unit UCadastro;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls;
+
+type
+  TfrmCadastro = class(TForm)
+    Panel1: TPanel;
+    gridLista: TDBGrid;
+    editLocalizar: TEdit;
+    labtitulo: TLabel;
+    btSair: TBitBtn;
+    btNovo: TBitBtn;
+    btEditar: TBitBtn;
+    btExcluir: TBitBtn;
+    DataSource: TDataSource;
+    procedure btSairClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastro: TfrmCadastro;
+
+implementation
+
+{$R *.dfm}
+
+uses UDados;
+
+procedure TfrmCadastro.btSairClick(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

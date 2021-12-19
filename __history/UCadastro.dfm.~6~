@@ -1,0 +1,163 @@
+object frmCadastro: TfrmCadastro
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Cadastro de '
+  ClientHeight = 341
+  ClientWidth = 679
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object labtitulo: TLabel
+    Left = 8
+    Top = 12
+    Width = 61
+    Height = 16
+    Caption = 'Localizar '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object labTotal: TLabel
+    Left = 8
+    Top = 276
+    Width = 37
+    Height = 16
+    Caption = 'Total:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 300
+    Width = 679
+    Height = 41
+    Align = alBottom
+    TabOrder = 0
+    ExplicitLeft = 256
+    ExplicitTop = 176
+    ExplicitWidth = 185
+    DesignSize = (
+      679
+      41)
+    object btSair: TBitBtn
+      Left = 597
+      Top = 4
+      Width = 75
+      Height = 33
+      Cursor = crHandPoint
+      Anchors = [akRight, akBottom]
+      Caption = 'Sai&r'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btSairClick
+      ExplicitLeft = 605
+    end
+  end
+  object gridLista: TDBGrid
+    Left = 8
+    Top = 56
+    Width = 545
+    Height = 209
+    DataSource = DataSource
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object editLocalizar: TEdit
+    Left = 8
+    Top = 29
+    Width = 209
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnChange = editLocalizarChange
+  end
+  object btNovo: TBitBtn
+    Left = 576
+    Top = 57
+    Width = 75
+    Height = 37
+    Cursor = crHandPoint
+    Caption = 'Novo'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+  end
+  object btEditar: TBitBtn
+    Left = 576
+    Top = 97
+    Width = 75
+    Height = 37
+    Cursor = crHandPoint
+    Caption = 'Alterar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+  end
+  object btExcluir: TBitBtn
+    Left = 576
+    Top = 137
+    Width = 75
+    Height = 37
+    Cursor = crHandPoint
+    Caption = 'Excluir'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+  end
+  object DataSource: TDataSource
+    DataSet = DmDados.cdsCadastro
+    Left = 592
+    Top = 192
+  end
+end

@@ -1,0 +1,44 @@
+unit URelatAbastecimento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLReport, Data.DB;
+
+type
+  TfrmRelatAbastecimentos = class(TForm)
+    RLReport1: TRLReport;
+    DataSource1: TDataSource;
+    RLBand1: TRLBand;
+    RLBand2: TRLBand;
+    RLBand3: TRLBand;
+    RLBand4: TRLBand;
+    RLBand5: TRLBand;
+    RLLabel1: TRLLabel;
+    RLSystemInfo1: TRLSystemInfo;
+    RLSystemInfo2: TRLSystemInfo;
+    labPeriodo: TRLLabel;
+    RLLabel2: TRLLabel;
+    RLLabel3: TRLLabel;
+    RLLabel4: TRLLabel;
+    RLLabel5: TRLLabel;
+    RLSystemInfo3: TRLSystemInfo;
+    RLSystemInfo4: TRLSystemInfo;
+    RLLabel6: TRLLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmRelatAbastecimentos: TfrmRelatAbastecimentos;
+
+implementation
+
+{$R *.dfm}
+
+uses UDados;
+
+end.

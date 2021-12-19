@@ -1,0 +1,33 @@
+unit UCadastro;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls;
+
+type
+  TfrmCadastro = class(TForm)
+    Panel1: TPanel;
+    DBGrid1: TDBGrid;
+    Edit1: TEdit;
+    Label1: TLabel;
+    BitBtn2: TBitBtn;
+    BitBtn1: TBitBtn;
+    BitBtn3: TBitBtn;
+    BitBtn4: TBitBtn;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastro: TfrmCadastro;
+
+implementation
+
+{$R *.dfm}
+
+end.

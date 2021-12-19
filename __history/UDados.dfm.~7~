@@ -1,0 +1,39 @@
+object DmDados: TDmDados
+  OldCreateOrder = False
+  Height = 435
+  Width = 844
+  object FDConexao: TFDConnection
+    Params.Strings = (
+      'Database=C:\PostoABC\fontes\Win32\Debug\banco\POSTO.FDB'
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 24
+    Top = 16
+  end
+  object FDQuery: TFDQuery
+    Connection = FDConexao
+    Left = 32
+    Top = 88
+  end
+  object dspCadastro: TDataSetProvider
+    DataSet = FDQuery
+    Left = 32
+    Top = 144
+  end
+  object cdsCadastro: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspCadastro'
+    Left = 32
+    Top = 200
+  end
+  object cdsBombasLista: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspCadastro'
+    Left = 192
+    Top = 208
+  end
+end

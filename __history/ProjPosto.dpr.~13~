@@ -1,0 +1,26 @@
+program ProjPosto;
+
+uses
+  Vcl.Forms,
+  UPrincipal in 'UPrincipal.pas' {frmPrincipal},
+  UDados in 'UDados.pas' {DmDados: TDataModule},
+  UCadastroOpcoes in 'UCadastroOpcoes.pas' {frmCadastroOpcoes},
+  UCadastro in 'UCadastro.pas' {frmCadastro},
+  UAbastecimento in 'UAbastecimento.pas' {frmAbastecimento},
+  URelatAbastecimento in 'URelatAbastecimento.pas' {frmRelatAbastecimentos},
+  URelatAbastecimentoOpcoes in 'URelatAbastecimentoOpcoes.pas' {frmRelatAbastecimentoOpcoes};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDmDados, DmDados);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmCadastroOpcoes, frmCadastroOpcoes);
+  Application.CreateForm(TfrmCadastro, frmCadastro);
+  Application.CreateForm(TfrmAbastecimento, frmAbastecimento);
+  Application.CreateForm(TfrmRelatAbastecimentos, frmRelatAbastecimentos);
+  Application.CreateForm(TfrmRelatAbastecimentoOpcoes, frmRelatAbastecimentoOpcoes);
+  Application.Run;
+end.
