@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client, forms,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-  Datasnap.DBClient, Datasnap.Provider, FireDAC.Comp.DataSet, windows;
+  Datasnap.DBClient, Datasnap.Provider, FireDAC.Comp.DataSet, windows,
+  FireDAC.Phys.IBBase;
 
 type
   TDmDados = class(TDataModule)
@@ -30,6 +31,7 @@ type
     cdsRelatAbastecimentoData: TDateField;
     cdsRelatAbastecimentoValor: TFMTBCDField;
     cdsRelatAbastecimentoLitros: TFMTBCDField;
+    FDPhysFBDriverLink1: TFDPhysFBDriverLink;
     function AbreConexao:integer;
     function FechaConexao:integer;
     function ListaCadastro(parametro:integer):integer;

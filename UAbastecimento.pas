@@ -93,6 +93,21 @@ begin
     Application.MessageBox('Selecione a bomba corretamente.', 'Aviso', + MB_ICONWARNING + mb_ok);
     ModalResult := mrnone;
     comboBomba.SetFocus;
+    abort;
+  end;
+  if editLitros.Text = '' then
+  begin
+    Application.MessageBox('Digite a quantidade corretamente.', 'Aviso', + MB_ICONWARNING + mb_ok);
+    ModalResult := mrnone;
+    editLitros.SetFocus;
+    abort;
+  end;
+  if editValorTotal.Text = '' then
+  begin
+    Application.MessageBox('Digite o valor corretamente.', 'Aviso', + MB_ICONWARNING + mb_ok);
+    ModalResult := mrnone;
+    editValorTotal.SetFocus;
+    abort;
   end;
 end;
 

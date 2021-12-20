@@ -38,11 +38,17 @@ type
     procedure CalcDadosLitros;
     procedure editLitrosExit(Sender: TObject);
     procedure editValorTotalExit(Sender: TObject);
+    procedure editValorTotalKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure editLitrosKeyPress(Sender: TObject; var Key: Char);
     procedure editValorTotalKeyPress(Sender: TObject; var Key: Char);
   private
     FvalorImposto: real;
     FvalorCombust: real;
     FbombaId: real;
+    FqtdeLitros: real;
+    FvalorTotal: real;
+    FimpostoPago: real;
     { Private declarations }
   public
     { Public declarations }
@@ -50,6 +56,9 @@ type
      property valorCombust:real read FvalorCombust write FvalorCombust;
      property valorImposto:real read FvalorImposto write FvalorImposto;
      property bombaId:real read FbombaId write FbombaId;
+     property qtdeLitros:real read FqtdeLitros write FqtdeLitros;
+     property valorTotal:real read FvalorTotal write FvalorTotal;
+     property impostoPago:real read FimpostoPago write FimpostoPago;
   end;
 
 var
@@ -81,25 +90,24 @@ procedure TfrmAbastecimento.btOkClick(Sender: TObject);
 begin
   if not dsBombas.DataSet.Locate('bomba', comboBomba.Text,[]) then
   begin
-    Application.MessageBox('Selecione a bomba corretamente .', 'Aviso', + MB_ICONWARNING + mb_ok);
+    Application.MessageBox('Selecione a bomba corretamente.', 'Aviso', + MB_ICONWARNING + mb_ok);
     ModalResult := mrnone;
     comboBomba.SetFocus;
   end;
 end;
 
 procedure TfrmAbastecimento.CalcDadosLitros;
-var
-   qtdelitros, valortotal, imposto:real;
 begin
   if editValorTotal.text<>'' then
   begin
     try
       valortotal := strtofloat(editValorTotal.text);
-      qtdelitros:= valorCombust /qtdelitros;
-      imposto := valortotal * valorImposto;
-      editLitros.Text := floattostr(qtdelitros);
-      editImposto.Text := floattostr(imposto);
-    finally
+      qtdelitros:= valortotal / valorCombust;
+      impostopago := valortotal * valorImposto;
+      editValorTotal.Text := formatfloat(',0.00',valortotal);
+      editLitros.Text := formatfloat(',0.00',qtdelitros);
+      editImposto.Text := formatfloat(',0.00',impostopago);
+    Except
       Application.MessageBox('Digite o valor total corretamente.', 'Aviso', + MB_ICONWARNING + mb_ok);
       editLitros.SetFocus;
     end;
@@ -107,18 +115,17 @@ begin
 end;
 
 procedure TfrmAbastecimento.CalcDadosValorTotal;
-var
-   qtdelitros, valortotal, imposto:real;
 begin
 if editLitros.text<>'' then
     begin
       try
         qtdelitros:= strtofloat(editLitros.text);
         valortotal := qtdelitros * valorCombust;
-        imposto := valortotal * valorImposto;
-        editValorTotal.Text := floattostr(valortotal);
-        editImposto.Text := floattostr(imposto);
-      finally
+        impostoPago := valortotal * valorImposto;
+        editValorTotal.Text := formatfloat(',0.00',valortotal);
+        editLitros.Text := formatfloat(',0.00',qtdelitros);
+        editImposto.Text := formatfloat(',0.00',impostoPago);
+      Except
         Application.MessageBox('Digite quantidade de litros corretamente .', 'Aviso', + MB_ICONWARNING + mb_ok);
         editLitros.SetFocus;
       end;
@@ -132,6 +139,9 @@ begin
     valorCombust := DmDados.retornaValorCombustivel(dsBombas.DataSet.FieldByName('tipocomb_id').value);
     labValor.Caption := 'R$' + FormatFloat(',0.00', valorCombust);
     bombaId := dsBombas.DataSet.FieldByName('bomba_id').value;
+    editLitros.Clear;
+    editValorTotal.Clear;
+    editImposto.Clear;
   end;
 end;
 
@@ -143,20 +153,33 @@ end;
 procedure TfrmAbastecimento.editLitrosKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if key = #13 then
+  if key = 13 then
     btOk.SetFocus;
+end;
+
+procedure TfrmAbastecimento.editLitrosKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (key in ['0'..'9',',']) then
+    key :=#0;
 end;
 
 procedure TfrmAbastecimento.editValorTotalExit(Sender: TObject);
 begin
-  CalcDadosValorTotal;
+  CalcDadosLitros;
+end;
+
+procedure TfrmAbastecimento.editValorTotalKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if key = 13 then
+    btOk.SetFocus;
 end;
 
 procedure TfrmAbastecimento.editValorTotalKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  if key = #13 then
-    btOk.SetFocus;
+  if not (key in ['0'..'9',',']) then
+    key :=#0;
 end;
 
 procedure TfrmAbastecimento.FormShow(Sender: TObject);
@@ -164,7 +187,7 @@ begin
   addBombas;
   labData.Caption := datetostr(now());
   valorImposto := DmDados.retornaValorImposto;
-  labImposto.Caption := floattostr(valorImposto *100) +'%'
+  labImposto.Caption := floattostr(valorImposto *100) +'%';
 end;
 
 end.

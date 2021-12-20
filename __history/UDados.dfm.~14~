@@ -145,9 +145,4 @@ object DmDados: TDmDados
       Size = 2
     end
   end
-  object FDPhysFBDriverLink1: TFDPhysFBDriverLink
-    VendorLib = 'fbclient.dll'
-    Left = 216
-    Top = 104
-  end
 end

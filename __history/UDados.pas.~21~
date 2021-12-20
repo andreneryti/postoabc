@@ -17,12 +17,28 @@ type
     dspCadastro: TDataSetProvider;
     cdsCadastro: TClientDataSet;
     cdsBombasLista: TClientDataSet;
+    QueryRelatAbastecimento: TFDQuery;
+    QueryRelatAbastecimentoTanque: TStringField;
+    QueryRelatAbastecimentoBomba: TStringField;
+    QueryRelatAbastecimentoData: TDateField;
+    QueryRelatAbastecimentoValor: TFMTBCDField;
+    QueryRelatAbastecimentoLitros: TFMTBCDField;
+    dspRelatAbastecimento: TDataSetProvider;
+    cdsRelatAbastecimento: TClientDataSet;
+    cdsRelatAbastecimentoTanque: TStringField;
+    cdsRelatAbastecimentoBomba: TStringField;
+    cdsRelatAbastecimentoData: TDateField;
+    cdsRelatAbastecimentoValor: TFMTBCDField;
+    cdsRelatAbastecimentoLitros: TFMTBCDField;
     function AbreConexao:integer;
     function FechaConexao:integer;
     function ListaCadastro(parametro:integer):integer;
     function ExecuteProc(Name: string; parametros: string): integer;
     function ListaBombas:integer;
     function retornaValorImposto:real;
+    function retornaValorCombustivel(combust_id:integer):real;
+    function novoAbastecimento(bastec_id, bomba_id: integer; qtde,valor, valortotal, impostoaplicado,impostovalor: real):integer;
+    function relatorioAbastecimento(dataini, datafim: Tdatetime): integer;
   private
     { Private declarations }
   public
@@ -146,6 +162,89 @@ begin
     end;
 end;
 
+function TDmDados.novoAbastecimento(bastec_id, bomba_id: integer; qtde, valor,
+  valortotal, impostoaplicado, impostovalor: real): integer;
+var
+  retorno: Integer;
+  nomeproc, parametros: string;
+begin
+  if AbreConexao = 0 then
+  begin
+    Application.MessageBox('Erro ao abrir a conexão.','Erro', + mb_iconerror + mb_ok);
+    result :=0;
+  end
+  else
+  begin
+     try
+       nomeproc := 'PROC_ABASTECIMENTO_I';
+       parametros :=   inttostr(bastec_id) + ',' ;
+       parametros := parametros +   inttostr(bomba_id) + ',' ;
+       parametros := parametros +   quotedstr(FormatDateTime('YYYY.MM.DD', now())) + ',';
+       parametros := parametros +   stringreplace(floattostr(qtde), ',', '.', [rfReplaceAll]) + ', ';
+       parametros := parametros +   stringreplace(floattostr(valor), ',', '.', [rfReplaceAll]) + ', ';
+       parametros := parametros +   stringreplace(floattostr(valortotal), ',', '.', [rfReplaceAll]) + ', ';
+       parametros := parametros +   stringreplace(floattostr(impostoaplicado), ',', '.', [rfReplaceAll]) + ', ';
+       parametros := parametros +   stringreplace(floattostr(impostovalor), ',', '.', [rfReplaceAll]) ;
+       FDQuery.close;
+       FDConexao.StartTransaction;
+       FDQuery.Sql.Clear;
+       FDQuery.Sql.add('execute procedure ' + nomeproc + ' (' + parametros + ')');
+       FDQuery.ExecSQL;
+       FDConexao.Commit;
+       retorno := 1;
+    except
+       FDConexao.Rollback;
+       retorno := 0;
+    end;
+    FechaConexao;
+    result := retorno;
+end;
+
+end;
+
+function TDmDados.relatorioAbastecimento(dataini, datafim: Tdatetime): integer;
+begin
+  if AbreConexao = 0 then
+  begin
+    Application.MessageBox('Erro ao abrir a conexão.', 'Erro', + mb_iconerror + mb_ok);
+    result :=-1;
+  end
+  else
+  begin
+     cdsRelatAbastecimento.Close;
+     cdsRelatAbastecimento.Params.ParamByName('dataini').Value := dataini;
+     cdsRelatAbastecimento.Params.ParamByName('datafim').Value := datafim;
+     cdsRelatAbastecimento.open;
+     FechaConexao;
+     result := cdsRelatAbastecimento.RecordCount;
+  end;
+
+end;
+
+function TDmDados.retornaValorCombustivel(combust_id: integer): real;
+var
+  valor:real;
+begin
+  if AbreConexao = 0 then
+  begin
+    Application.MessageBox('Erro ao abrir a conexão.', 'Erro', + mb_iconerror + mb_ok);
+    result :=0;
+  end
+  else
+  begin
+    FDQuery.Close;
+    FdQuery.SQL.Clear;
+    FdQuery.SQL.add (' select first 1 v.valor from valor_combustivel v ');
+    FdQuery.SQL.add (' where v.tipocomb_id = ' + inttostr(combust_id));
+    FdQuery.SQL.add (' order by v.data desc ');
+    FdQuery.Open;
+    valor := strtofloat( FdQuery.FieldByName('valor').Value);
+    FechaConexao;
+    Result :=valor;
+  end;
+end;
+
+
 function TDmDados.retornaValorImposto: real;
 var
   valor:real;
@@ -160,13 +259,12 @@ begin
     FDQuery.Close;
     FdQuery.SQL.Clear;
     FdQuery.SQL.add (' select pa.parametro_valor from parametros pa ');
-    FdQuery.SQL.add (' where pa.parametro_desc = ''IMPOSTO_ABASTECIMENTO''   cdsBombasLista.FetchParams; ');
+    FdQuery.SQL.add (' where pa.parametro_desc = ''IMPOSTO_ABASTECIMENTO'' ');
     FdQuery.Open;
-    valor := strtofloat( FdQuery.FieldByName('parametro_valor').Value;
+    valor := strtofloat( FdQuery.FieldByName('parametro_valor').Value);
     FechaConexao;
     Result :=valor;
   end;
-
 end;
 
 end.
